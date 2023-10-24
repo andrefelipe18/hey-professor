@@ -8,14 +8,6 @@ use Illuminate\Http\Request;
 
 class QuestionController extends Controller
 {
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
     public function store(Request $request): RedirectResponse
     {
 
@@ -34,33 +26,37 @@ class QuestionController extends Controller
         return to_route('dashboard');
     }
 
-    /**
-     * Display the specified resource.
-     */
+    public function vote(Question $question): RedirectResponse
+    {
+        if($question->votes()->where('user_id', auth()->id())->exists()){
+            // Caso o usuário já tenha votado na pergunta
+            return back()->withErrors(['error' => 'Você já votou nesta pergunta']);
+        }
+
+        $question->votes()->create([
+            'user_id' => auth()->id(),
+            'like' => true,
+        ]);
+
+        return to_route('dashboard');
+    }
+
     public function show(Question $question)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(Question $question)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
+
     public function update(Request $request, Question $question)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Question $question)
     {
         //
