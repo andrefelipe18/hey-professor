@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Question;
 
 use App\Http\Controllers\Controller;
 use App\Models\Question;
-use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 
 class LikeController extends Controller
@@ -16,10 +15,7 @@ class LikeController extends Controller
             return back()->withErrors(['error' => 'Você já votou nesta pergunta']);
         }
 
-        $question->votes()->create([
-            'user_id' => auth()->id(),
-            'like' => true,
-        ]);
+        auth()->user()->like($question);
 
         return to_route('dashboard');
     }
