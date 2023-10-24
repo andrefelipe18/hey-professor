@@ -30,11 +30,14 @@ class QuestionController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
+
         $regras = [
             'question' => 'required|min:10|max:255|ends_with:?'
         ];
 
-        $request->validate($regras);
+        $messagens = [ 'question.required' => 'O campo pergunta é obrigatório', 'question.min' => 'O campo pergunta deve ter no mínimo 10 caracteres', 'question.max' => 'O campo pergunta deve ter no máximo 255 caracteres', 'question.ends_with' => 'O campo pergunta deve terminar com ?' ];
+
+        $request->validate($regras, $messagens);
 
         Question::create([
             'question' => $request->question
