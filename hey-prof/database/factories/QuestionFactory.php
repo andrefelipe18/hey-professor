@@ -17,7 +17,7 @@ class QuestionFactory extends Factory
     public function definition(): array
     {
         return [
-            'question' => $this->faker->sentence(10) . '?',
+            'question' => $this->faker->sentence(10).'?',
         ];
     }
 }

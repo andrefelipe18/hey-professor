@@ -5,7 +5,6 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 use App\Models\Question;
-use Database\Factories\QuestionFactory;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder

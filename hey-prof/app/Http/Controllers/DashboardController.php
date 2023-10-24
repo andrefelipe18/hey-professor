@@ -3,8 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Question;
-use Illuminate\Http\Request;
-use Illuminate\View\View;
+use Illuminate\Contracts\View\View;
 
 class DashboardController extends Controller
 {
@@ -13,7 +12,7 @@ class DashboardController extends Controller
         $questions = Question::all();
 
         return view('dashboard', [
-            'questions' => $questions
+            'questions' => $questions,
         ]);
     }
 }
