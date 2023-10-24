@@ -37,6 +37,6 @@ test('Não pode votar mais de uma vez na questão', function(){
     $request = post(route('question.vote', $question));
 
     //Assert -> Verificação
-    $request->assertSessionHasErrors(['error' => 'Você já votou nesta pergunta']);
+    $request->assertSessionHasErrors(['error' => 'Você já votou nesta pergunta']); //asdasdasdasd
 });
 

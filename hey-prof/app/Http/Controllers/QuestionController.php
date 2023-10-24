@@ -26,21 +26,6 @@ class QuestionController extends Controller
         return to_route('dashboard');
     }
 
-    public function vote(Question $question): RedirectResponse
-    {
-        if($question->votes()->where('user_id', auth()->id())->exists()){
-            // Caso o usuário já tenha votado na pergunta
-            return back()->withErrors(['error' => 'Você já votou nesta pergunta']);
-        }
-
-        $question->votes()->create([
-            'user_id' => auth()->id(),
-            'like' => true,
-        ]);
-
-        return to_route('dashboard');
-    }
-
     public function show(Question $question)
     {
         //
