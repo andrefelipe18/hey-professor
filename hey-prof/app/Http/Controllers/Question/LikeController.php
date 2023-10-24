@@ -10,7 +10,7 @@ class LikeController extends Controller
 {
     public function __invoke(Question $question): RedirectResponse
     {
-        if($question->votes()->where('user_id', auth()->id())->exists()){
+        if ($question->votes()->where('user_id', auth()->id())->exists()) {
             // Caso o usuário já tenha votado na pergunta
             return back()->withErrors(['error' => 'Você já votou nesta pergunta']);
         }

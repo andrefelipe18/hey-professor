@@ -4,7 +4,7 @@ use function Pest\Laravel\actingAs;
 use function Pest\Laravel\assertDatabaseHas;
 use function Pest\Laravel\post;
 
-test('Deve conseguir votar na questão', function(){
+test('Deve conseguir votar na questão', function () {
     //Arrange -> Preparação
     $user = \App\Models\User::factory()->create();
     actingAs($user);
@@ -25,7 +25,7 @@ test('Deve conseguir votar na questão', function(){
     $request->assertRedirect(route('dashboard'));
 });
 
-test('Não pode votar mais de uma vez na questão', function(){
+test('Não pode votar mais de uma vez na questão', function () {
     //Arrange -> Preparação
     $user = \App\Models\User::factory()->create();
     actingAs($user);
@@ -39,4 +39,3 @@ test('Não pode votar mais de uma vez na questão', function(){
     //Assert -> Verificação
     $request->assertSessionHasErrors(['error' => 'Você já votou nesta pergunta']); //asdasdasdasd
 });
-
