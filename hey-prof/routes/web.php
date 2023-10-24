@@ -20,5 +20,6 @@ Route::middleware('auth')->group(function () {
 
 Route::post('/question/store', [QuestionController::class, 'store'])->name('question.store');
 Route::post('/question/{question}/like', Question\LikeController::class)->name('question.vote');
+Route::post('/question/{question}/unlike', Question\UnlikeController::class)->name('question.unvote');
 
 require __DIR__.'/auth.php';

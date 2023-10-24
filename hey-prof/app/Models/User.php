@@ -61,4 +61,30 @@ class User extends Authenticatable
             'like' => true,
         ]);
     }
+
+    public function unlike(Question $question): void
+    {
+        $this->votes()->create([
+            'question_id' => $question->id,
+            'unlike' => true,
+        ]);
+    }
+
+    public function liked(Question $question): bool
+    {
+        if ($this->votes()->where('question_id', $question->id)->where('like', true)->exists()) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public function unliked(Question $question): bool
+    {
+        if ($this->votes()->where('question_id', $question->id)->where('unlike', true)->exists()) {
+            return true;
+        }
+
+        return false;
+    }
 }

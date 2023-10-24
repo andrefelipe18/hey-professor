@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Question;
 use Illuminate\Http\RedirectResponse;
 
-class LikeController extends Controller
+class UnlikeController extends Controller
 {
     public function __invoke(Question $question): RedirectResponse
     {
@@ -16,11 +16,11 @@ class LikeController extends Controller
         $user = auth()->user();
 
         //Se o usuário já votou na pergunta, não pode votar novamente
-        if($user->liked($question)) {
-            return back()->withErrors(['error' => 'Você já votou nesta pergunta']);
+        if($user->unliked($question)) {
+            return back()->withErrors(['error' => 'Você já marcou como não gostei nesta pergunta']);
         }
 
-        $user->like($question);
+        $user->unlike($question);
 
         return to_route('dashboard');
     }
