@@ -42,3 +42,4 @@ test('Não pode marcar como não gostei mais de uma vez na questão', function (
     assertDatabaseCount('votes', 1);
     $request->assertSessionHasErrors(['error' => 'Você já marcou como não gostei nesta pergunta']);
 });
+
