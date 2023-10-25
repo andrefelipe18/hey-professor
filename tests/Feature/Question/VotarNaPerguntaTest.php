@@ -1,6 +1,7 @@
 <?php
 
 use function Pest\Laravel\actingAs;
+use function Pest\Laravel\assertDatabaseCount;
 use function Pest\Laravel\assertDatabaseHas;
 use function Pest\Laravel\post;
 
@@ -38,4 +39,20 @@ test('Não pode votar mais de uma vez na questão', function () {
 
     //Assert -> Verificação
     $request->assertSessionHasErrors(['error' => 'Você já votou nesta pergunta']); //asdasdasdasd
+});
+
+test('Se o usuário dar like algo que ele deu unlike, remove o unlike', function(){
+    //Arrange -> Preparação
+    $user = \App\Models\User::factory()->create();
+    actingAs($user);
+
+    $question = \App\Models\Question::factory()->create();
+
+    //Act -> Execução
+    $request = post(route('question.unvote', $question));
+    $request = post(route('question.vote', $question));
+
+    //Assert -> Verificação
+    assertDatabaseCount('votes', 1);
+    $request->assertRedirectToRoute('dashboard');
 });

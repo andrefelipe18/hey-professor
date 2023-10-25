@@ -43,3 +43,18 @@ test('Não pode marcar como não gostei mais de uma vez na questão', function (
     $request->assertSessionHasErrors(['error' => 'Você já marcou como não gostei nesta pergunta']);
 });
 
+test('Se o usuário marcar como não gostei algo que ele deu like, remove o like', function(){
+    //Arrange -> Preparação
+    $user = \App\Models\User::factory()->create();
+    actingAs($user);
+
+    $question = \App\Models\Question::factory()->create();
+
+    //Act -> Execução
+    $request = post(route('question.vote', $question));
+    $request = post(route('question.unvote', $question));
+
+    //Assert -> Verificação
+    assertDatabaseCount('votes', 1);
+    $request->assertRedirectToRoute('dashboard');
+});

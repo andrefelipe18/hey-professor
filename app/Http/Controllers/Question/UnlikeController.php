@@ -15,6 +15,12 @@ class UnlikeController extends Controller
          */
         $user = auth()->user();
 
+        if($user->liked($question)) {
+            $user->votes()->where('question_id', $question->id)->delete();
+            $user->unlike($question);
+            return to_route('dashboard');
+        }
+
         //Se o usuário já votou na pergunta, não pode votar novamente
         if($user->unliked($question)) {
             return back()->withErrors(['error' => 'Você já marcou como não gostei nesta pergunta']);
