@@ -10,6 +10,14 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/404', function () {
+    abort(404);
+});
+
+Route::get('/no-permission', function () {
+    abort(403);
+});
+
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
